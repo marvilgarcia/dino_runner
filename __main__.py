@@ -53,18 +53,11 @@ def main():
     robot.set_position(position)
     cast.add_actor("robots", robot)
     
-    # create the artifacts
-    #with open(DATA_PATH) as file:
-        #data = file.read()
-        #messages = data.splitlines()
-
-    #seq = [42,111] # gets the ascii characters for * and o
     for n in range(DEFAULT_ARTIFACTS):
-        #text = chr(random.randint(33, 126)) # getting the ascii characters to put on the screen.
+ 
         text = random.choice(["*","o"])
         message = [n] 
-
-        # need to change to make it so the characters will be at the top. 
+        
         x = random.randint(1, ROWS - 1) 
         y = 599  # will make the gems and rocks start from the bottom. 
         position = Point(x, y)
