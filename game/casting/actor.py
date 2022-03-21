@@ -18,7 +18,7 @@ class Actor:
 
     def __init__(self):
         """Constructs a new Actor."""
-        self._text = 0 #changed "" to o
+        self._text = 0 
         self._font_size = 15
         self._color = Color(255, 255, 255)
         self._position = Point(0, 0)
