@@ -54,8 +54,6 @@ class Director:
         
         
         banner.set_text(f'Score: {self._total_score}')  # This will display the score on screen
-        #banner.set_text(str(f'Score: {self._total_score}'))
-        #banner.set_text("")
         banner.set_text(str(f'Score: {self._total_score}')) 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
@@ -63,7 +61,6 @@ class Director:
         
         # becuase it is a list it has to loop through.
         for artifact in artifacts:
-            #banner.set_text(str(f'Score: {self._total_score}'))
             artifact.move_next(max_x, max_y) # this updates it on the game so it goes from top to bottom.
             if robot.get_position().equals(artifact.get_position()):
                 text = artifact.get_text() #Tutor and I thought of this logic
@@ -71,12 +68,9 @@ class Director:
                     self._total_score += 75
                 elif text == "o":
                     self._total_score -= 100
-                #self._total_score = artifact.set_total_score()
-                #banner.set_text(f'Score: {self._total_score}') #shows score
+                    
+                #shows score
                 banner.set_text(str(f'Score: {self._total_score}'))
-
-                #message = artifact.get_message() # Tutor and I got rid of this
-                #banner.set_text(message)  # this is the same as line 56 so we can remove this line  
             
                 
     def _do_outputs(self, cast):
