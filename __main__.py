@@ -2,6 +2,7 @@ import os
 import random
 from tkinter.tix import MAX
 
+from game.casting.dino import Dino
 from game.casting.actor import Actor
 from game.casting.artifact import Artifact
 from game.casting.cast import Cast
@@ -18,8 +19,8 @@ from game.shared.point import Point
 FRAME_RATE = 12
 MAX_X = 900
 MAX_Y = 600
-CELL_SIZE = 15
-FONT_SIZE = 15
+CELL_SIZE = 30
+FONT_SIZE = 30
 COLS = 60
 ROWS = 40
 CAPTION = "Greed"
@@ -42,16 +43,17 @@ def main():
     cast.add_actor("banners", banner)
     
     # create the robot
-    x = int(MAX_X / 2 )
-    y = int(MAX_X / -65)
+    x = int(50 )
+    y = 540
     position = Point(x, y)
 
-    robot = Actor()
+    robot = Dino()
     robot.set_text("#")
     robot.set_font_size(FONT_SIZE)
     robot.set_color(WHITE)
     robot.set_position(position)
     cast.add_actor("robots", robot)
+    
     
     for n in range(DEFAULT_ARTIFACTS):
  
@@ -59,7 +61,7 @@ def main():
         message = [n] 
         
         x = random.randint(1, ROWS - 1) 
-        y = 599  # will make the gems and rocks start from the bottom. 
+        y = int(540 / CELL_SIZE)  # will make the gems and rocks start from the bottom. 
         position = Point(x, y)
         position = position.scale(CELL_SIZE) # scales the pixel to the appropriate size.
 

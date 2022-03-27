@@ -33,7 +33,7 @@ class KeyboardService:
             #dx = -1
         
         if pyray.is_key_down(pyray.KEY_SPACE):
-            dy = -1
+            dy = -2 # Changing this and Gravity will change the way that s jumps and falls. 
         
         #if pyray.is_key_down(pyray.KEY_UP):
              #dy = -1
