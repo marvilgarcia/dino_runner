@@ -1,3 +1,5 @@
+from constants import *
+
 class Director:
     """A person who directs the game. 
     
@@ -17,9 +19,12 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self._total_score = 0 
+        self.playing = True 
+        if self._video_service.close_window():
+            self.playing = False
+       
         
-    def start_game(self, cast):
+    def start_game(self, cast, script):
         """Starts the game using the given cast. Runs the main game loop.
 
         Args:
@@ -28,7 +33,7 @@ class Director:
         self._video_service.open_window()
         while self._video_service.is_window_open():
             self._get_inputs(cast)
-            self._do_updates(cast)
+            self._do_updates(cast, script)
             self._do_outputs(cast)
         self._video_service.close_window()
 
@@ -42,7 +47,7 @@ class Director:
         velocity = self._keyboard_service.get_direction()
         robot.set_velocity(velocity)        
 
-    def _do_updates(self, cast):
+    def _do_updates(self, cast, script):
         """Updates the robot's position and resolves any collisions with artifacts.
         
         Args:
@@ -53,24 +58,20 @@ class Director:
         artifacts = cast.get_actors("artifacts")
         
         
-        banner.set_text(f'Score: {self._total_score}')  # This will display the score on screen
-        banner.set_text(str(f'Score: {self._total_score}')) 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
+
+        script.TimedAddObjects(DELAY, self.playing)
         
         # becuase it is a list it has to loop through.
         for artifact in artifacts:
             artifact.move_next(max_x, max_y) # this updates it on the game so it goes from top to bottom.
             if robot.get_position().equals(artifact.get_position()):
-                text = artifact.get_text() #Tutor and I thought of this logic
-                if text == "*":
-                    self._total_score += 75
-                elif text == "o":
-                    self._total_score -= 100
-                    
-                #shows score
-                banner.set_text(str(f'Score: {self._total_score}'))
+                # this needs to end the game
+                self.playing = False
+                pass
+               
             
                 
     def _do_outputs(self, cast):
