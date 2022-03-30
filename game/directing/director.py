@@ -1,8 +1,7 @@
-from turtle import Turtle
 from game.casting.actor import Actor
 from game.shared.point import Point
 from game.script.timed_add_objects import TimedAddObjects
-import time
+
 from constants import * 
 
 class Director:

@@ -41,8 +41,8 @@ class TimedAddObjects(Action):
 
             text = 'O'
 
-            x = 400 #MAX_X #ROWS - 1
-            y =  350 # int(MAX_Y / 2)  # will make the gems and rocks start from the bottom.
+            x = MAX_X - 1
+            y =  MAX_Y - 1 # will make the gems and rocks start from the bottom.
             position = Point(x, y)
             # scales the pixel to the appropriate size.
             position = position.scale(CELL_SIZE)
