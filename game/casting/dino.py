@@ -19,8 +19,8 @@ class Dino(Actor):
         y = (self._position.get_y() + self._velocity.get_y() + self._gravity) 
         # checks if y is below floor creates the floor at the bottom making it so the dino does not fall down more. 
         # TODO do make 598 in a con
-        if y >= 540:
-            y = 540 
+        if y >= 570:
+            y = 570 
             
         #checks to see if y is at the top and stops dino at the top of the screen
         if y <= 30 * 2:

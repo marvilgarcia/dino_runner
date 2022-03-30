@@ -1,6 +1,7 @@
 from turtle import Turtle
 from game.casting.actor import Actor
 from game.shared.point import Point
+from game.script.timed_add_objects import TimedAddObjects
 import time
 from constants import * 
 
@@ -60,39 +61,34 @@ class Director:
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
         self._game_score()
+
+        add_object = TimedAddObjects(DELAY)
+        add_object.execute(cast, script)
+        # think I will need to return the artifacts as a list so the loop can happen below.
+        # but once an actor is added in the timed_add_objects class then it will be put in the list above
+        # if timed_add_objects inherits from action do I need to have that somewhere in this? no
+        # it would
         
-        
-        #banner.set_text(f'Score: {self._total_score}')  # This will display the score on screen
         banner.set_text(str(f'Score: {self._total_score}')) 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
 
-        script.TimedAddObjects(DELAY, self.playing)
-        # think I will need to return the artifacts as a list so the loop can happen below.
-        
         # becuase it is a list it has to loop through.
         for artifact in artifacts:
             artifact.move_next(max_x, max_y) # this updates it on the game so it goes from top to bottom.
             if robot.get_position().equals(artifact.get_position()):
                 text = artifact.get_text() 
-                if text == "*":
-                 self._is_game_over = True
-                elif text == "o":
+                if text == "o":
                     self._is_game_over = True
-                    if self._is_game_over == True:
-                        x = int(450)
-                        y = int(300)
-                        position = Point(x, y)
-                        # write game over 
-                        message = Actor()
-                        message.set_text("Game over")
-                        message.set_position(position)
-                        cast.add_actor("messages", message)
-                        
-        
-                #shows score
-                #banner.set_text(str(f'Score: {self._total_score}'))
+                    x = int(450)
+                    y = int(300)
+                    position = Point(x, y)
+                    # write game over 
+                    message = Actor()
+                    message.set_text("Game over")
+                    message.set_position(position)
+                    cast.add_actor("messages", message)
             
                 
     def _do_outputs(self, cast):
@@ -108,6 +104,9 @@ class Director:
         
         
     def _game_score(self):
+        '''
+        Adds a point every second the game is played.
+        '''
         if self._is_game_over:
             return 
         if self._counter >= (12):
