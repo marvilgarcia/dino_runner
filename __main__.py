@@ -60,7 +60,7 @@ def main():
         color = Color(r, g, b)
         
         # creating the velocity
-        x_v = random.randrange(1,5)
+        x_v = random.randrange(-5, 0 )
         y_v = 0
         velocity = Point(x_v, y_v)
 
