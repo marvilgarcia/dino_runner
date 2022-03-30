@@ -63,6 +63,7 @@ class Director:
         robot.move_next(max_x, max_y)
 
         script.TimedAddObjects(DELAY, self.playing)
+        # think I will need to return the artifacts as a list so the loop can happen below.
         
         # becuase it is a list it has to loop through.
         for artifact in artifacts:
