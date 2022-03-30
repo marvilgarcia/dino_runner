@@ -1,7 +1,6 @@
 from turtle import Turtle
 from game.casting.actor import Actor
 from game.shared.point import Point
-import time
 class Director:
     """A person who directs the game. 
     
@@ -60,8 +59,8 @@ class Director:
         self._game_score()
         
         
-        #banner.set_text(f'Score: {self._total_score}')  # This will display the score on screen
-        banner.set_text(str(f'Score: {self._total_score}')) 
+        
+        banner.set_text(str(f'Score: {self._total_score}')) #display the score on the screen
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
@@ -76,7 +75,7 @@ class Director:
                 elif text == "o":
                     self._is_game_over = True
                     if self._is_game_over == True:
-                        x = int(450)
+                        x = int(375)
                         y = int(300)
                         position = Point(x, y)
                         # write game over 
@@ -84,12 +83,7 @@ class Director:
                         message.set_text("Game over")
                         message.set_position(position)
                         cast.add_actor("messages", message)
-                        
-        
-                #shows score
-                #banner.set_text(str(f'Score: {self._total_score}'))
-            
-                
+               
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
         
@@ -101,7 +95,7 @@ class Director:
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
         
-        
+    #Creates the loop for the score to add into the scores   
     def _game_score(self):
         if self._is_game_over:
             return 
