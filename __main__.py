@@ -1,7 +1,7 @@
 import os
-import random
+import random 
+from constants import *
 from tkinter.tix import MAX
-
 from game.casting.dino import Dino
 from game.casting.actor import Actor
 from game.casting.artifact import Artifact
@@ -16,17 +16,6 @@ from game.shared.color import Color
 from game.shared.point import Point
 
 
-FRAME_RATE = 12
-MAX_X = 900
-MAX_Y = 600
-CELL_SIZE = 30
-FONT_SIZE = 30
-COLS = 60
-ROWS = 40
-CAPTION = "Dino Runner"
-DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
-WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 10 # number of characters on the screen
 
 
 def main():
