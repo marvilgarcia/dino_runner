@@ -1,7 +1,8 @@
-# greed
-He who is not contented with what he has, would not be contented with what he would like to have.
+# Dino
+Run and jump, get your timing down and don't miss. 
 - Socrates
-Greed is a game in which the player seeks to gather as many falling gems as possible. The game continues as long as the player wants more!
+In dino runner, you be running alot and jumping over objects, try not to touch one or the game is over. 
+Use the space bar to jump of the objects that are coming at you. 
 
 ## Getting Started
 ---

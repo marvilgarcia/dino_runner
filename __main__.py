@@ -23,7 +23,7 @@ CELL_SIZE = 30
 FONT_SIZE = 30
 COLS = 60
 ROWS = 40
-CAPTION = "Greed"
+CAPTION = "Dino Runner"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = 10 # number of characters on the screen
@@ -57,7 +57,7 @@ def main():
     
     for n in range(DEFAULT_ARTIFACTS):
  
-        text = random.choice(["*","o"])
+        text = random.choice(["o","o"])
         message = [n] 
         
         x = random.randint(1, ROWS - 1) 
