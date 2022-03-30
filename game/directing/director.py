@@ -1,4 +1,8 @@
-from constants import *
+from turtle import Turtle
+from game.casting.actor import Actor
+from game.shared.point import Point
+import time
+from constants import * 
 
 class Director:
     """A person who directs the game. 
@@ -19,10 +23,9 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self.playing = True 
-        if self._video_service.close_window():
-            self.playing = False
-       
+        self._total_score = 0 
+        self._is_game_over = False
+        self._counter = 0
         
     def start_game(self, cast, script):
         """Starts the game using the given cast. Runs the main game loop.
@@ -56,8 +59,11 @@ class Director:
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
+        self._game_score()
         
         
+        #banner.set_text(f'Score: {self._total_score}')  # This will display the score on screen
+        banner.set_text(str(f'Score: {self._total_score}')) 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
@@ -69,10 +75,24 @@ class Director:
         for artifact in artifacts:
             artifact.move_next(max_x, max_y) # this updates it on the game so it goes from top to bottom.
             if robot.get_position().equals(artifact.get_position()):
-                # this needs to end the game
-                self.playing = False
-                pass
-               
+                text = artifact.get_text() 
+                if text == "*":
+                 self._is_game_over = True
+                elif text == "o":
+                    self._is_game_over = True
+                    if self._is_game_over == True:
+                        x = int(450)
+                        y = int(300)
+                        position = Point(x, y)
+                        # write game over 
+                        message = Actor()
+                        message.set_text("Game over")
+                        message.set_position(position)
+                        cast.add_actor("messages", message)
+                        
+        
+                #shows score
+                #banner.set_text(str(f'Score: {self._total_score}'))
             
                 
     def _do_outputs(self, cast):
@@ -85,3 +105,14 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+        
+        
+    def _game_score(self):
+        if self._is_game_over:
+            return 
+        if self._counter >= (12):
+            self._counter = 0
+            self._total_score += 1
+        else:
+            self._counter += 1
+        
