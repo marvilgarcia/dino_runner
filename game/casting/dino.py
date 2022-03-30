@@ -23,8 +23,8 @@ class Dino(Actor):
             y = 540 
             
         #checks to see if y is at the top and stops dino at the top of the screen
-        if y <= 30 * 2:
-            y = 30 * 2
+        if y <= 475: #30 * 2:
+            y =475 #30 * 2
             
         
         self._position = Point(x, y)
