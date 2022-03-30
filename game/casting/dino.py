@@ -5,7 +5,7 @@ class Dino(Actor):
     
     def __init__(self):
         super().__init__()
-        self._gravity = 5 #int(30 / 2) This is how we create gravity Changing to higher numbers makes it fall faster. 
+        self._gravity = 25  # int(30 / 2) 5 int(30 / 2) This is how we create gravity Changing to higher numbers makes it fall faster. 
         
     def move_next(self, max_x, max_y):
         """Moves the actor to its next position according to its velocity. Will wrap the position 
