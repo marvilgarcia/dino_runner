@@ -92,6 +92,16 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
+        self._video_service.clear_buffer()
+        actors = cast.get_all_actors()
+        self._video_service.draw_actors(actors)
+        self._video_service.flush_buffer()
+
+    
+    def _game_score(self):
+        """
+        Adds a point every second the game is played.
+        """
         if self._counter >= (FRAME_RATE):
             self._counter = 0
             self._total_score += 1
