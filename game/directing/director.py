@@ -77,6 +77,7 @@ class Director:
             if artifact.get_position().get_x() == 0:
                 cast.remove_actor('artifacts', artifact)
             if robot.get_position().equals(artifact.get_position()):
+                self._is_game_over = True
                 x = int(450)
                 y = int(300)
                 position = Point(x, y)
@@ -102,6 +103,8 @@ class Director:
         """
         Adds a point every second the game is played.
         """
+        if self._is_game_over:
+            return
         if self._counter >= (FRAME_RATE):
             self._counter = 0
             self._total_score += 1
