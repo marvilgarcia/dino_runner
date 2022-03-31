@@ -105,7 +105,7 @@ class Director:
         '''
         if self._is_game_over:
             return 
-        if self._counter >= (12):
+        if self._counter >= (FRAME_RATE):
             self._counter = 0
             self._total_score += 1
         else:
