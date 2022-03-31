@@ -78,7 +78,7 @@ class Director:
                 cast.remove_actor('artifacts', artifact)
             if robot.get_position().equals(artifact.get_position()):
                 self._is_game_over = True
-                x = int(450)
+                x = int(375)
                 y = int(300)
                 position = Point(x, y)
                 message = Actor()
