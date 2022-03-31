@@ -1,20 +1,17 @@
-import os
-import random 
 from constants import *
-from tkinter.tix import MAX
 from game.casting.dino import Dino
 from game.casting.actor import Actor
-from game.casting.artifact import Artifact
 from game.casting.cast import Cast
+from game.script.script import Script
 
 from game.directing.director import Director
 
 from game.services.keyboard_service import KeyboardService
 from game.services.video_service import VideoService
 
-from game.shared.color import Color
 from game.shared.point import Point
 
+from constants import *
 
 
 
@@ -22,6 +19,7 @@ def main():
     
     # create the cast
     cast = Cast()
+    script = Script()
     
     # create the banner
     banner = Actor()
@@ -32,8 +30,8 @@ def main():
     cast.add_actor("banners", banner)
     
     # create the robot
-    x = int(50 )
-    y = 540
+    x = int(MAX_X / 2 )
+    y = MAX_Y - CELL_SIZE
     position = Point(x, y)
 
     robot = Dino()
@@ -44,6 +42,7 @@ def main():
     cast.add_actor("robots", robot)
     
     
+<<<<<<< HEAD
     for n in range(DEFAULT_ARTIFACTS):
  
         text = random.choice(["o","o"])
@@ -75,11 +74,13 @@ def main():
         artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
+=======
+>>>>>>> matthews-branch
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
     director = Director(keyboard_service, video_service)
-    director.start_game(cast)
+    director.start_game(cast, script)
 
 
 if __name__ == "__main__":

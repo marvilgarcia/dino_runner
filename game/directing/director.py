@@ -1,6 +1,9 @@
-from turtle import Turtle
 from game.casting.actor import Actor
 from game.shared.point import Point
+from game.script.timed_add_objects import TimedAddObjects
+
+from constants import * 
+
 class Director:
     """A person who directs the game. 
     
@@ -23,8 +26,9 @@ class Director:
         self._total_score = 0 
         self._is_game_over = False
         self._counter = 0
+        self._add_object = TimedAddObjects()
         
-    def start_game(self, cast):
+    def start_game(self, cast, script):
         """Starts the game using the given cast. Runs the main game loop.
 
         Args:
@@ -48,8 +52,10 @@ class Director:
         robot.set_velocity(velocity)        
 
     def _do_updates(self, cast):
-        """Updates the robot's position and resolves any collisions with artifacts.
-        
+        """Updates the robot's position, adds an artifact onto the screen and removes it when 
+            it reaches the other side.
+
+
         Args:
             cast (Cast): The cast of actors.
         """
@@ -57,49 +63,36 @@ class Director:
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
         self._game_score()
+
+        self._add_object.execute(cast)
         
         
-        
-        banner.set_text(str(f'Score: {self._total_score}')) #display the score on the screen
+        banner.set_text(str(f'Score: {self._total_score}')) 
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        
-        # becuase it is a list it has to loop through.
+
         for artifact in artifacts:
-            artifact.move_next(max_x, max_y) # this updates it on the game so it goes from top to bottom.
+            artifact.move_next(max_x, max_y) 
+            if artifact.get_position().get_x() == 0:
+                cast.remove_actor('artifacts', artifact)
             if robot.get_position().equals(artifact.get_position()):
-                text = artifact.get_text() 
-                if text == "*":
-                 self._is_game_over = True
-                elif text == "o":
-                    self._is_game_over = True
-                    if self._is_game_over == True:
-                        x = int(375)
-                        y = int(300)
-                        position = Point(x, y)
-                        # write game over 
-                        message = Actor()
-                        message.set_text("Game over")
-                        message.set_position(position)
-                        cast.add_actor("messages", message)
-               
+                x = int(450)
+                y = int(300)
+                position = Point(x, y)
+                message = Actor()
+                message.set_text("Game over")
+                message.set_position(position)
+                cast.add_actor("messages", message)
+            
+                
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
         
         Args:
             cast (Cast): The cast of actors.
         """
-        self._video_service.clear_buffer()
-        actors = cast.get_all_actors()
-        self._video_service.draw_actors(actors)
-        self._video_service.flush_buffer()
-        
-    #Creates the loop for the score to add into the scores   
-    def _game_score(self):
-        if self._is_game_over:
-            return 
-        if self._counter >= (12):
+        if self._counter >= (FRAME_RATE):
             self._counter = 0
             self._total_score += 1
         else:
