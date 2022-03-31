@@ -16,6 +16,7 @@ COLS = 60
 ROWS = 40
 CAPTION = "Dino Runner"
 WHITE = Color(255, 255, 255)
+RED = Color(255, 0, 0)
 DEFAULT_ARTIFACTS = 10  # number of characters on the screen
 
 

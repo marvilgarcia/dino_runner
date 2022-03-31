@@ -62,7 +62,7 @@ class Director:
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
-        self._game_score()
+        self._game_score(cast)
 
         self._add_object.execute(cast)
         
@@ -78,6 +78,14 @@ class Director:
                 cast.remove_actor('artifacts', artifact)
             if robot.get_position().equals(artifact.get_position()):
                 self._is_game_over = True
+                
+                #turns the dino to red when game is over
+                robot.set_color(RED)
+                
+                #makes the artifacts turn white
+                for artifact in artifacts:
+                    artifact.set_color(WHITE)
+                    
                 x = int(375)
                 y = int(300)
                 position = Point(x, y)
@@ -99,10 +107,11 @@ class Director:
         self._video_service.flush_buffer()
 
     
-    def _game_score(self):
+    def _game_score(self, cast):
         """
         Adds a point every second the game is played.
         """
+        
         if self._is_game_over:
             return
         if self._counter >= (FRAME_RATE):
